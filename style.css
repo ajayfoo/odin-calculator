@@ -23,7 +23,6 @@ html {
 
 #keyboard {
     display: flex;
-    justify-content: center;
     padding: 20px;
 }
 
@@ -33,11 +32,22 @@ html {
 }
 
 #num-pad .num {
+    padding: 5px;
     margin: 5px;
+    border: 2px solid maroon;
+    border-radius: 5px;
 }
 
 #operations {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+#operations .operation {
+    padding: 5px;
+    margin: 5px;
+    border: 2px solid peru;
+    border-radius: 5px;
+    text-align: center;
 }
