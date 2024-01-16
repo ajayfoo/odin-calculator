@@ -15,4 +15,16 @@ function handleNumButtons() {
     ));
 }
 
+function handleClearButton() {
+    const clearButton = document.getElementById('clear-btn');
+    clearButton.addEventListener(
+        'click',
+        () => {
+            display.textContent = ''
+            display.appendChild(document.createTextNode('\u00A0'));
+        }
+    );
+}
+
 handleNumButtons();
+handleClearButton();
