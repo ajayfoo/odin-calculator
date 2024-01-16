@@ -15,6 +15,7 @@ html {
     border: 5px solid black;
     border-radius: 6px;
     margin: auto;
+    padding: 10px;
     background-color: darkslategray;
 }
 
@@ -25,12 +26,14 @@ html {
     box-shadow: inset -2px 2px 5px black;
     font-family: 'Courier New', Courier, monospace;
     font-size: 55px;
+    margin: 0 8px;
 }
 
 #keyboard {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 5px;
 }
 
 
