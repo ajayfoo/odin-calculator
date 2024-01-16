@@ -13,14 +13,18 @@ html {
 #calculator {
     width: 384px;
     border: 5px solid black;
-    border-radius: 15px;
+    border-radius: 6px;
     margin: auto;
+    background-color: darkslategray;
 }
 
 #display {
-    border: 5px solid slategrey;
-    border-radius: 15px;
+    border: 5px solid #71706e;
     text-align: center;
+    background-color: lightgray;
+    box-shadow: inset -2px 2px 5px black;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 55px;
 }
 
 #keyboard {
@@ -43,4 +47,14 @@ button {
     border: 2px solid maroon;
     border-radius: 5px;
     text-align: center;
+    background-color: #71706e;
+    box-shadow: 2px 2px 5px black;
+}
+
+.num {
+    color: lightskyblue;
+}
+
+.operation {
+    color: lightblue;
 }
