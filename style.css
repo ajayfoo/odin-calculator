@@ -12,21 +12,25 @@ html {
 
 #calculator {
     width: 384px;
-    border: 5px solid black;
+    border: 2px solid #181716;
     border-radius: 6px;
     margin: auto;
     padding: 10px;
     background-color: darkslategray;
+    box-shadow: 4px 4px 5px black;
 }
 
 #display {
     border: 5px solid #71706e;
-    text-align: center;
+    text-align: end;
+    padding-right: 5px;
+    padding-top: 5px;
     background-color: lightgray;
     box-shadow: inset -2px 2px 5px black;
     font-family: 'Courier New', Courier, monospace;
     font-size: 55px;
     margin: 0 8px;
+    line-height: 1rem;
 }
 
 #keyboard {
