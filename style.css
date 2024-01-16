@@ -1,7 +1,7 @@
 html {
     box-sizing: border-box;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 45px;
 }
 
 *,
@@ -11,7 +11,7 @@ html {
 }
 
 #calculator {
-    width: 300px;
+    width: 384px;
     border: 5px solid black;
     border-radius: 15px;
     margin: auto;
@@ -25,15 +25,13 @@ html {
 
 #keyboard {
     display: flex;
-    padding: 20px;
-}
-
-#num-pad {
-    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
-#num-pad button.num {
+
+button {
+    width: 30%;
     background: none;
     color: inherit;
     border: none;
@@ -43,26 +41,6 @@ html {
     padding: 5px;
     margin: 5px;
     border: 2px solid maroon;
-    border-radius: 5px;
-    text-align: center;
-}
-
-#operations {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#operations button.operation {
-    background: none;
-    color: inherit;
-    border: none;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-    padding: 5px;
-    margin: 5px;
-    border: 2px solid peru;
     border-radius: 5px;
     text-align: center;
 }
