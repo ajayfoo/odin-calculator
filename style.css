@@ -62,8 +62,23 @@ button {
     color: lightskyblue;
 }
 
+.num:active {
+    background-color: lightgrey;
+    color: #71706e;
+    box-shadow: none;
+}
+
 .operator,
 #clear-btn,
 #equals-btn {
-    color: lightblue;
+    color: darkgreen;
+    background-color: lightsalmon;
+}
+
+.operator:active,
+#clear-btn:active,
+#equals-btn:active {
+    background-color: lightgrey;
+    color: #71706e;
+    box-shadow: none;
 }
