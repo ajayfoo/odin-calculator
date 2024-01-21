@@ -12,7 +12,7 @@ const operatorMethods = {
     '+': (a, b) => a + b,
     '-': (a, b) => a - b,
     '*': (a, b) => a * b,
-    '/': (a, b) => a / b,
+    '/': (a, b) => (a / b).toFixed(2),
 };
 
 function handleNumButtons() {
