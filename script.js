@@ -69,6 +69,10 @@ function setResult() {
     num1 = Number(display.textContent);
 }
 
+function handleDivideByZero() {
+    alert('OI!, you can\'t divide by zero');
+}
+
 function handleOperatorButton() {
     const operators = document.querySelectorAll('.operator');
     operators.forEach(op => op.addEventListener(
@@ -79,6 +83,11 @@ function handleOperatorButton() {
                 equalsWasClicked = false;
             } else {
                 if (num2 === null) return;
+                if (num2 === 0 && operator === '/') {
+                    handleDivideByZero();
+                    clearAll();
+                    return;
+                }
                 num1 = operatorMethods[operator](num1, num2);
                 display.textContent = num1;
                 num2 = null;
@@ -99,6 +108,11 @@ function handleEqualsButton() {
                 display.textContent = SYNTAX_ERROR_MSG;
             }
             if (num2 === null) return;
+            if (num2 === 0 && operator === '/') {
+                handleDivideByZero();
+                clearAll();
+                return;
+            }
             num1 = operatorMethods[operator](num1, num2);
             num2 = null;
             display.textContent = num1;
