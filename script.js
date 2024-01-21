@@ -8,11 +8,23 @@ let operatorWasClicked = false;
 let equalsWasClicked = false;
 let resultIsSet = false;
 
-const operatorMethods = {
-    '+': (a, b) => a + b,
-    '-': (a, b) => a - b,
-    '*': (a, b) => a * b,
-    '/': (a, b) => (a / b).toFixed(2),
+function isFloatingPointNumber(num) {
+    return Math.floor(num) !== Number(num);
+}
+
+function operate(a, op, b) {
+    a = Number(a);
+    b = Number(b);
+    let result = null;
+    switch (op) {
+        case '+': result = a + b; break;
+        case '-': result = a - b; break;
+        case '*': result = a * b; break;
+        case '/': result = a / b; break;
+        default: return null;
+    }
+    if (isFloatingPointNumber(result)) return result.toFixed(2);
+    return result;
 };
 
 function handleNumButtons() {
@@ -22,20 +34,21 @@ function handleNumButtons() {
         () => {
             if (syntaxErrorOcurred) clearAll();
             if (display.textContent.length >= 5) {
-                alert('Number must be below 10^5');
+                alert('Length of number must be less than 6 characters');
                 return;
             }
             if (equalsWasClicked) {
                 clearAll();
                 equalsWasClicked = false;
             }
-            let displayText = Number(display.textContent) * 10 + Number(btn.textContent);
+            let displayText = display.textContent === '0' ?
+                btn.textContent : display.textContent.concat(btn.textContent);
             if (!operatorWasClicked) {
                 num1 = displayText;
             } else {
                 if (num2 === null) {
                     clearDisplay();
-                    displayText = Number(btn.textContent);
+                    displayText = btn.textContent;
                 }
                 num2 = displayText;
             }
@@ -44,9 +57,36 @@ function handleNumButtons() {
     ));
 }
 
+function disablePointButton() {
+    const pointBtn = document.getElementById('point');
+    pointBtn.style.boxShadow = 'none';
+    pointBtn.style.opacity = '0.3';
+    pointBtn.style.cursor = 'not-allowed';
+    pointBtn.disabled = true;
+}
+function enablePointButton() {
+    const pointBtn = document.getElementById('point');
+    pointBtn.style.boxShadow = '2px 2px 5px black';
+    pointBtn.style.opacity = '1';
+    pointBtn.style.cursor = 'pointer';
+    pointBtn.disabled = false;
+}
+
+function handlePointButton() {
+    const pointBtn = document.getElementById('point');
+    pointBtn.addEventListener(
+        'click',
+        () => {
+            display.textContent += '.';
+            disablePointButton();
+        }
+    )
+}
+
 function clearDisplay() {
     syntaxErrorOcurred = false;
     display.textContent = 0;
+    enablePointButton();
 }
 
 function clearAll() {
@@ -65,8 +105,9 @@ function handleAllClearButton() {
 }
 
 function setResult() {
-    display.textContent = operatorMethods[operator](num1, num2);
-    num1 = Number(display.textContent);
+    num1 = operate(num1, operator, num2);
+    display.textContent = num1;
+    num2 = null;
 }
 
 function handleDivideByZero() {
@@ -88,9 +129,7 @@ function handleOperatorButton() {
                     clearAll();
                     return;
                 }
-                num1 = operatorMethods[operator](num1, num2);
-                display.textContent = num1;
-                num2 = null;
+                setResult();
             }
             operator = op.textContent;
         }
@@ -113,9 +152,7 @@ function handleEqualsButton() {
                 clearAll();
                 return;
             }
-            num1 = operatorMethods[operator](num1, num2);
-            num2 = null;
-            display.textContent = num1;
+            setResult();
             operatorWasClicked = false;
             equalsWasClicked = true;
         }
@@ -126,3 +163,4 @@ handleNumButtons();
 handleAllClearButton();
 handleOperatorButton();
 handleEqualsButton();
+handlePointButton();
