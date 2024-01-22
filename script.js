@@ -118,6 +118,28 @@ function setResult() {
     num2 = null;
 }
 
+function handleDeleteButton() {
+    const deleteButton = document.getElementById('delete');
+    deleteButton.addEventListener(
+        'click',
+        () => {
+            if (display.textContent == '0') return;
+            else if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
+                if (display.textContent.length === 1) {
+                    display.textContent = 0;
+                } else {
+                    display.textContent = display.textContent.slice(0, -1);
+                }
+            }
+            if (!operatorWasClicked) {
+                num1 = display.textContent;
+            } else {
+                num2 = display.textContent;
+            }
+        }
+    )
+}
+
 function handleDivideByZero() {
     alert('OI!, you can\'t divide by zero');
 }
@@ -168,6 +190,7 @@ function handleEqualsButton() {
 }
 
 handleNumButtons();
+handleDeleteButton();
 handleAllClearButton();
 handleOperatorButton();
 handleEqualsButton();
