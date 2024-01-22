@@ -33,35 +33,41 @@ function operate(a, op, b) {
     return result;
 };
 
+function handleNumWrapper(event) {
+    handleNum(event.target.textContent);
+}
+
+function handleNum(num) {
+    if (syntaxErrorOcurred) clearAll();
+    if (display.textContent.length >= 9) {
+        if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
+            alert('Length of number must be less than 6 characters');
+            return;
+        }
+    }
+    if (equalsWasClicked) {
+        clearAll();
+        equalsWasClicked = false;
+    }
+    let displayText = display.textContent === '0' ?
+        num : display.textContent.concat(num);
+    if (!operatorWasClicked) {
+        num1 = displayText;
+    } else {
+        if (num2 === null) {
+            clearDisplay();
+            displayText = num;
+        }
+        num2 = displayText;
+    }
+    display.textContent = displayText;
+}
+
 function handleNumButtons() {
     const numButtons = document.querySelectorAll('.num');
     numButtons.forEach(btn => btn.addEventListener(
         'click',
-        () => {
-            if (syntaxErrorOcurred) clearAll();
-            if (display.textContent.length >= 9) {
-                if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
-                    alert('Length of number must be less than 6 characters');
-                    return;
-                }
-            }
-            if (equalsWasClicked) {
-                clearAll();
-                equalsWasClicked = false;
-            }
-            let displayText = display.textContent === '0' ?
-                btn.textContent : display.textContent.concat(btn.textContent);
-            if (!operatorWasClicked) {
-                num1 = displayText;
-            } else {
-                if (num2 === null) {
-                    clearDisplay();
-                    displayText = btn.textContent;
-                }
-                num2 = displayText;
-            }
-            display.textContent = displayText;
-        }
+        handleNumWrapper
     ));
 }
 
@@ -80,14 +86,16 @@ function enablePointButton() {
     pointBtn.disabled = false;
 }
 
+function handlePoint() {
+    display.textContent += '.';
+    disablePointButton();
+}
+
 function handlePointButton() {
     const pointBtn = document.getElementById('point');
     pointBtn.addEventListener(
         'click',
-        () => {
-            display.textContent += '.';
-            disablePointButton();
-        }
+        handlePoint
     )
 }
 
@@ -123,7 +131,7 @@ function handleDeleteButton() {
     deleteButton.addEventListener(
         'click',
         () => {
-            if (display.textContent == '0' || equalsWasClicked) return;
+            if (display.textContent == '0' || equalsWasClicked || operatorWasClicked) return;
             else if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
                 if (display.textContent.length === 1) {
                     display.textContent = 0;
@@ -144,25 +152,31 @@ function handleDivideByZero() {
     alert('OI!, you can\'t divide by zero');
 }
 
+function handleOperator(op) {
+    if (!operatorWasClicked) {
+        operatorWasClicked = true;
+        equalsWasClicked = false;
+    } else {
+        if (num2 === null) return;
+        if (num2 === 0 && operator === '/') {
+            handleDivideByZero();
+            clearAll();
+            return;
+        }
+        setResult();
+    }
+    operator = op;
+}
+
+function handleOperatorWrapper(event) {
+    handleOperator(event.target.textContent);
+}
+
 function handleOperatorButton() {
     const operators = document.querySelectorAll('.operator');
     operators.forEach(op => op.addEventListener(
         'click',
-        () => {
-            if (!operatorWasClicked) {
-                operatorWasClicked = true;
-                equalsWasClicked = false;
-            } else {
-                if (num2 === null) return;
-                if (num2 === 0 && operator === '/') {
-                    handleDivideByZero();
-                    clearAll();
-                    return;
-                }
-                setResult();
-            }
-            operator = op.textContent;
-        }
+        handleOperatorWrapper
     ));
 }
 
@@ -193,9 +207,9 @@ function isNumber(x) {
     return !isNaN(Number.parseInt(x));
 }
 
-function isOperatorOrPoint(x) {
+function isOperator(x) {
     const operators = ['+', '-', '*', '/'];
-    return operators.includes(x) || x === '.';
+    return operators.includes(x);
 }
 
 function isValidActionKey(x) {
@@ -203,8 +217,12 @@ function isValidActionKey(x) {
     return validActionKeys.includes(x);
 }
 
+function isPoint(x) {
+    return x === '.';
+}
+
 function isValidInput(x) {
-    return isNumber(x) || isOperatorOrPoint(x) || isValidActionKey(x);
+    return isNumber(x) || isOperator(x) || isValidActionKey(x) || isPoint(x);
 }
 
 function handleKeys() {
@@ -212,6 +230,8 @@ function handleKeys() {
         'keydown',
         (e) => {
             if (!isValidInput(e.key)) return;
+            if (isNumber(e.key)) handleNum(e.key);
+            else if (isOperator(e.key)) handleOperator(e.key);
         }
     )
 }
@@ -222,3 +242,4 @@ handleAllClearButton();
 handleOperatorButton();
 handleEqualsButton();
 handlePointButton();
+handleKeys();
