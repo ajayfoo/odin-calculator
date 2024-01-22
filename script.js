@@ -123,7 +123,7 @@ function handleDeleteButton() {
     deleteButton.addEventListener(
         'click',
         () => {
-            if (display.textContent == '0') return;
+            if (display.textContent == '0' || equalsWasClicked) return;
             else if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
                 if (display.textContent.length === 1) {
                     display.textContent = 0;
