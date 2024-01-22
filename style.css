@@ -58,11 +58,13 @@ button {
     box-shadow: 2px 2px 5px black;
 }
 
-.num {
+.num,
+#point {
     color: lightskyblue;
 }
 
 .num:active,
+#point:active,
 #delete:active {
     background-color: lightgrey;
     color: #71706e;

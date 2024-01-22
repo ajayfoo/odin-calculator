@@ -189,6 +189,33 @@ function handleEqualsButton() {
     );
 }
 
+function isNumber(x) {
+    return !isNaN(Number.parseInt(x));
+}
+
+function isOperatorOrPoint(x) {
+    const operators = ['+', '-', '*', '/'];
+    return operators.includes(x) || x === '.';
+}
+
+function isValidActionKey(x) {
+    const validActionKeys = ['Backspace', 'Enter', '='];
+    return validActionKeys.includes(x);
+}
+
+function isValidInput(x) {
+    return isNumber(x) || isOperatorOrPoint(x) || isValidActionKey(x);
+}
+
+function handleKeys() {
+    document.addEventListener(
+        'keydown',
+        (e) => {
+            if (!isValidInput(e.key)) return;
+        }
+    )
+}
+
 handleNumButtons();
 handleDeleteButton();
 handleAllClearButton();
