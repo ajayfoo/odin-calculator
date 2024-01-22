@@ -62,7 +62,8 @@ button {
     color: lightskyblue;
 }
 
-.num:active {
+.num:active,
+#point:active {
     background-color: lightgrey;
     color: #71706e;
     box-shadow: none;

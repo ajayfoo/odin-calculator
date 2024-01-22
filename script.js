@@ -12,6 +12,10 @@ function isFloatingPointNumber(num) {
     return Math.floor(num) !== Number(num);
 }
 
+function isLongNumber(num) {
+    return num.toString().length > 9;
+}
+
 function operate(a, op, b) {
     a = Number(a);
     b = Number(b);
@@ -23,7 +27,9 @@ function operate(a, op, b) {
         case '/': result = a / b; break;
         default: return null;
     }
-    if (isFloatingPointNumber(result)) return result.toFixed(2);
+    if (isLongNumber(result)) {
+        return result.toExponential(4);
+    }
     return result;
 };
 
@@ -33,9 +39,11 @@ function handleNumButtons() {
         'click',
         () => {
             if (syntaxErrorOcurred) clearAll();
-            if (display.textContent.length >= 5) {
-                alert('Length of number must be less than 6 characters');
-                return;
+            if (display.textContent.length >= 9) {
+                if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
+                    alert('Length of number must be less than 6 characters');
+                    return;
+                }
             }
             if (equalsWasClicked) {
                 clearAll();
