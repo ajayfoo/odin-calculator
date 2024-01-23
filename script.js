@@ -39,16 +39,15 @@ function handleNumWrapper(event) {
 }
 
 function handleNum(num) {
-    if (syntaxErrorOcurred) clearAll();
+    if (syntaxErrorOcurred || equalsWasClicked) {
+        clearAll();
+        equalsWasClicked = false;
+    }
     if (display.textContent.length >= 9) {
         if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
             alert('Length of number must be less than 6 characters');
             return;
         }
-    }
-    if (equalsWasClicked) {
-        clearAll();
-        equalsWasClicked = false;
     }
     let displayText = display.textContent === '0' ?
         num : display.textContent.concat(num);
