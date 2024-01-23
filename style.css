@@ -10,6 +10,10 @@ html {
     box-sizing: inherit;
 }
 
+body {
+    background-image: url("images/main-bg.jpg");
+}
+
 #calculator {
     width: 384px;
     border: 2px solid #181716;
