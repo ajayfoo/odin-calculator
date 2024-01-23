@@ -113,7 +113,7 @@ function clearAll() {
 }
 
 function handleAllClearButton() {
-    const clearButton = document.getElementById('clear-btn');
+    const clearButton = document.getElementById('clear');
     clearButton.addEventListener(
         'click',
         clearAll
@@ -200,7 +200,7 @@ function handleEquals() {
 }
 
 function handleEqualsButton() {
-    const equalsButton = document.getElementById('equals-btn');
+    const equalsButton = document.getElementById('equals');
     equalsButton.addEventListener(
         'click',
         handleEquals

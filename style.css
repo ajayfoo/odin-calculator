@@ -77,15 +77,15 @@ button {
 }
 
 .operator,
-#clear-btn,
-#equals-btn {
+#clear,
+#equals {
     color: darkgreen;
     background-color: lightsalmon;
 }
 
 .operator:active,
-#clear-btn:active,
-#equals-btn:active {
+#clear:active,
+#equals:active {
     background-color: lightgrey;
     color: #71706e;
     box-shadow: none;
