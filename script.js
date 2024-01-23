@@ -182,26 +182,28 @@ function handleOperatorButton() {
     ));
 }
 
+function handleEquals() {
+    if (num2 === null && operatorWasClicked) {
+        clearDisplay();
+        syntaxErrorOcurred = true;
+        display.textContent = SYNTAX_ERROR_MSG;
+    }
+    if (num2 === null) return;
+    if (num2 === 0 && operator === '/') {
+        handleDivideByZero();
+        clearAll();
+        return;
+    }
+    setResult();
+    operatorWasClicked = false;
+    equalsWasClicked = true;
+}
+
 function handleEqualsButton() {
     const equalsButton = document.getElementById('equals-btn');
     equalsButton.addEventListener(
         'click',
-        () => {
-            if (num2 === null && operatorWasClicked) {
-                clearDisplay();
-                syntaxErrorOcurred = true;
-                display.textContent = SYNTAX_ERROR_MSG;
-            }
-            if (num2 === null) return;
-            if (num2 === 0 && operator === '/') {
-                handleDivideByZero();
-                clearAll();
-                return;
-            }
-            setResult();
-            operatorWasClicked = false;
-            equalsWasClicked = true;
-        }
+        handleEquals
     );
 }
 
@@ -239,6 +241,7 @@ function handleKeys() {
             else if (isOperator(e.key)) handleOperator(e.key);
             else if (isPoint(e.key)) handlePoint(e.key);
             else if (isBackspace(e.key)) handleDelete();
+            else if (isEnterOrEquals(e.key)) handleEquals();
         }
     )
 }
