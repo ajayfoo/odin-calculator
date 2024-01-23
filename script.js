@@ -45,7 +45,7 @@ function handleNum(num) {
     }
     if (display.textContent.length >= 9) {
         if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
-            alert('Length of number must be less than 6 characters');
+            alert('Number of digits must be less than 10');
             return;
         }
     }
