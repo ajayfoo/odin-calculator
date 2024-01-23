@@ -1,4 +1,5 @@
 const display = document.querySelector('#display');
+const pointBtn = document.getElementById('point');
 const SYNTAX_ERROR_MSG = 'ERROR';
 let syntaxErrorOcurred = false;
 let num1 = null;
@@ -72,14 +73,12 @@ function handleNumButtons() {
 }
 
 function disablePointButton() {
-    const pointBtn = document.getElementById('point');
     pointBtn.style.boxShadow = 'none';
     pointBtn.style.opacity = '0.3';
     pointBtn.style.cursor = 'not-allowed';
     pointBtn.disabled = true;
 }
 function enablePointButton() {
-    const pointBtn = document.getElementById('point');
     pointBtn.style.boxShadow = '2px 2px 5px black';
     pointBtn.style.opacity = '1';
     pointBtn.style.cursor = 'pointer';
@@ -87,6 +86,7 @@ function enablePointButton() {
 }
 
 function handlePoint() {
+    if (pointBtn.disabled) return;
     display.textContent += '.';
     disablePointButton();
 }
@@ -232,6 +232,7 @@ function handleKeys() {
             if (!isValidInput(e.key)) return;
             if (isNumber(e.key)) handleNum(e.key);
             else if (isOperator(e.key)) handleOperator(e.key);
+            else if (isPoint(e.key)) handlePoint(e.key);
         }
     )
 }
