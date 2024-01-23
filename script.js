@@ -126,26 +126,28 @@ function setResult() {
     num2 = null;
 }
 
+function handleDelete() {
+    if (display.textContent == '0' || equalsWasClicked || (operatorWasClicked && num2 === null)) return;
+    else if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
+        if (display.textContent.length === 1) {
+            display.textContent = 0;
+        } else {
+            display.textContent = display.textContent.slice(0, -1);
+        }
+    }
+    if (!operatorWasClicked) {
+        num1 = display.textContent;
+    } else {
+        num2 = display.textContent;
+    }
+}
+
 function handleDeleteButton() {
     const deleteButton = document.getElementById('delete');
     deleteButton.addEventListener(
         'click',
-        () => {
-            if (display.textContent == '0' || equalsWasClicked || (operatorWasClicked && num2 === null)) return;
-            else if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
-                if (display.textContent.length === 1) {
-                    display.textContent = 0;
-                } else {
-                    display.textContent = display.textContent.slice(0, -1);
-                }
-            }
-            if (!operatorWasClicked) {
-                num1 = display.textContent;
-            } else {
-                num2 = display.textContent;
-            }
-        }
-    )
+        handleDelete
+    );
 }
 
 function handleDivideByZero() {
@@ -212,9 +214,12 @@ function isOperator(x) {
     return operators.includes(x);
 }
 
-function isValidActionKey(x) {
-    const validActionKeys = ['Backspace', 'Enter', '='];
-    return validActionKeys.includes(x);
+function isEnterOrEquals(x) {
+    return ['Enter', '='].includes(x);
+}
+
+function isBackspace(x) {
+    return x === 'Backspace';
 }
 
 function isPoint(x) {
@@ -222,7 +227,7 @@ function isPoint(x) {
 }
 
 function isValidInput(x) {
-    return isNumber(x) || isOperator(x) || isValidActionKey(x) || isPoint(x);
+    return isNumber(x) || isOperator(x) || isEnterOrEquals(x) || isBackspace(x) || isPoint(x);
 }
 
 function handleKeys() {
@@ -233,6 +238,7 @@ function handleKeys() {
             if (isNumber(e.key)) handleNum(e.key);
             else if (isOperator(e.key)) handleOperator(e.key);
             else if (isPoint(e.key)) handlePoint(e.key);
+            else if (isBackspace(e.key)) handleDelete();
         }
     )
 }
