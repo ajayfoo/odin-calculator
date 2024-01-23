@@ -129,11 +129,13 @@ function setResult() {
 function handleDelete() {
     if (display.textContent == '0' || equalsWasClicked || (operatorWasClicked && num2 === null)) return;
     else if (!operatorWasClicked || (operatorWasClicked && num2 !== null)) {
+        const lastChar = display.textContent.charAt(display.textContent.length - 1);
         if (display.textContent.length === 1) {
             display.textContent = 0;
         } else {
             display.textContent = display.textContent.slice(0, -1);
         }
+        if (lastChar === '.') enablePointButton();
     }
     if (!operatorWasClicked) {
         num1 = display.textContent;
